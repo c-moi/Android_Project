@@ -1,6 +1,8 @@
 package fr.isen.bert.androiderestaurant
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -33,8 +35,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import fr.isen.bert.androiderestaurant.ui.theme.AndroidERestaurantTheme
 import fr.isen.bert.androiderestaurant.ui.theme.Mandarine40
+import org.json.JSONObject
 
 
 class HomeActivity : ComponentActivity() {
@@ -45,18 +51,27 @@ class HomeActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     Column {
-                        Header()
+                        val entrees: String = stringResource(id = R.string.option_entree)
+                        val plats: String = stringResource(id = R.string.option_plats)
+                        val desserts: String = stringResource(id = R.string.option_desserts)
+
+                        Header(stringResource(id = R.string.app_name))
                         Title()
-                        Menu()
+                        Menu(entrees, plats, desserts)
                     }
                 }
             }
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("HomeActivity", "Home activity is destroyed")
+    }
 }
 
 @Composable
-fun Header() {
+fun Header(title: String) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -64,7 +79,7 @@ fun Header() {
             .background(Mandarine40)
     ) {
         Text(
-            text = stringResource(id = R.string.app_name),
+            text = title,
             color = Color.White,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
@@ -84,7 +99,8 @@ fun Title() {
                     colors = listOf(Color.LightGray, Color(0xFFFFFBFE)),
                     startY = 0f,
                     endY = 10f
-                )),
+                )
+            ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End
     ) {
@@ -124,7 +140,8 @@ fun Title() {
 
 
 @Composable
-fun Menu() {
+fun Menu(entrees: String, plats: String, desserts: String) {
+
     val context = LocalContext.current
 
     Column(
@@ -137,20 +154,17 @@ fun Menu() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Entrées",
+            text = stringResource(id = R.string.option_entree),
             color = Mandarine40,
             fontSize = 35.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .padding(top = 20.dp, bottom = 20.dp)
                 .clickable {
-                    Toast
-                        .makeText(
-                            context,
-                            "Vous avez cliqué sur Entrées",
-                            Toast.LENGTH_SHORT
-                        )
-                        .show()
+                    //Toast.makeText(context, plats, Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context, CategoryActivity::class.java)
+                    intent.putExtra("category", entrees)
+                    context.startActivity(intent)
                 }
         )
         Spacer(
@@ -160,20 +174,17 @@ fun Menu() {
                 .background(Color(0xFF5E3206))
         )
         Text(
-            text = "Plats",
+            text = stringResource(id = R.string.option_plats),
             color = Mandarine40,
             fontSize = 35.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .padding(top = 20.dp, bottom = 20.dp)
                 .clickable {
-                    Toast
-                        .makeText(
-                            context,
-                            "Vous avez cliqué sur Plats",
-                            Toast.LENGTH_SHORT
-                        )
-                        .show()
+                    //Toast.makeText(context, plats, Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context, CategoryActivity::class.java)
+                    intent.putExtra("category", plats)
+                    context.startActivity(intent)
                 }
         )
         Spacer(
@@ -183,20 +194,17 @@ fun Menu() {
                 .background(Color(0xFF5E3206))
         )
         Text(
-            text = "Desserts",
+            text = stringResource(id = R.string.option_desserts),
             color = Mandarine40,
             fontSize = 35.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .padding(top = 20.dp, bottom = 20.dp)
                 .clickable {
-                    Toast
-                        .makeText(
-                            context,
-                            "Vous avez cliqué sur Desserts",
-                            Toast.LENGTH_SHORT
-                        )
-                        .show()
+                    //Toast.makeText(context, plats, Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context, CategoryActivity::class.java)
+                    intent.putExtra("category", desserts)
+                    context.startActivity(intent)
                 }
         )
     }

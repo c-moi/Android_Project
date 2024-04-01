@@ -2,7 +2,21 @@
     <string name="app_name">AndroidERestaurant</string>
     <string name="home_welcome">Bienvenue\nchez</string>
     <string name="home_welcome_app_name">DroidRestaurant</string>
+
+    <string name="option_entree">Entrées</string>
     <string name="option_plats">Plats</string>
+    <string name="option_desserts">Desserts</string>
+
 
     <string name="title_activity_category">CategoryActivity</string>
+
+    <string name="salade">Salade de légumes</string>
+    <string name="soupe">Soupe de légumes</string>
+    <string name="gratin">Gratin Dauphinois</string>
+    <string name="poulet">Poulet Roti</string>
+    <string name="gateau">Gateau au chocolat</string>
+    <string name="cookie">Cookie caramel</string>
+
+
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>
